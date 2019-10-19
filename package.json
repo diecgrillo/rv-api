@@ -2,7 +2,8 @@
  "name": "test-node-postgres",
  "private": true,
  "scripts": {
-  "start": "node ./bin/www"
+  "start": "node ./bin/www",
+  "start.dev": "nodemon ./bin/www"
  },
  "dependencies": {
   "body-parser": "^1.19.0",
@@ -15,5 +16,8 @@
   "pg-hstore": "^2.3.3",
   "sequelize": "^5.19.4",
   "sequelize-cli": "^5.5.1"
+ },
+ "devDependencies": {
+  "nodemon": "^1.19.4"
  }
 }

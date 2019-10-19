@@ -12,16 +12,16 @@ module.exports = {
 	      allowNull: false,
         type: Sequelize.INTEGER
       },
-      rv_task_id: {
-        type: Sequelize.INTEGER,
-        references: {
-          model: "rv_tasks",
-          key: "id"
-        }
+      task_number: {
+        allowNull: false,
+        type: Sequelize.INTEGER
       },
       points: {
 	      defaultValue: 0,
-        type: Sequelize.INTEGER
+        type: Sequelize.DECIMAL
+      },
+      task_value: {
+        type: Sequelize.DECIMAL
       },
       base_date: {
 	      allowNull: false,

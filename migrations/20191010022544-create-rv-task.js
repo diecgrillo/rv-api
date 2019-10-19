@@ -8,11 +8,16 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
+      task_number: {
+        allowNull: false,
+        autoIncrement: true,
+        type: Sequelize.INTEGER
+      },
       name: {
         type: Sequelize.STRING
       },
       points: {
-        type: Sequelize.INTEGER
+        type: Sequelize.DECIMAL
       },
       start_date: {
         type: Sequelize.DATEONLY

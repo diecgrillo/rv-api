@@ -2,7 +2,8 @@
 module.exports = (sequelize, DataTypes) => {
   const RvTask = sequelize.define('RvTask', {
     name: DataTypes.STRING,
-    points: DataTypes.INTEGER,
+    task_number: DataTypes.INTEGER,
+    points: DataTypes.DECIMAL,
     startDate: DataTypes.DATEONLY,
     endDate: DataTypes.DATEONLY
   }, {

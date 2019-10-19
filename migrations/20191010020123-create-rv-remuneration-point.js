@@ -10,7 +10,7 @@ module.exports = {
       },
       min_points: {
 	      defaultValue: 0,
-        type: Sequelize.INTEGER
+        type: Sequelize.DECIMAL
       },
       value: {
 	      defaultValue: 1.0,

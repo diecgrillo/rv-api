@@ -1,7 +1,7 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
   const RvRemunerationPoint = sequelize.define('RvRemunerationPoint', {
-    minPoints: DataTypes.INTEGER,
+    minPoints: DataTypes.DECIMAL,
     value: DataTypes.DECIMAL,
     startDate: DataTypes.DATEONLY,
     endDate: DataTypes.DATEONLY

@@ -1,13 +1,13 @@
 var express = require("express");
-const RvGoalParam = require('../models').RvGoalParam;
+const RvTask = require('../models').RvTask;
 const Sequelize = require('sequelize');
 const Op = Sequelize.Op;
 
 var router  = express.Router();
 
 router.get("/", function(req, res) {
-  RvGoalParam.findAll({
-    attributes: ['id', 'individualGoalWeight', 'teamGoalWeight'],
+  RvTask.findAll({
+    attributes: ['id', 'task_number', 'name', 'points'],
     where: {
       startDate: { [Op.lte]: new Date() },
       endDate: {
@@ -17,20 +17,22 @@ router.get("/", function(req, res) {
         }
       }
     }
-  }).then(function(rvGoalParams) {
+  }).then(function(rvTasks) {
     res.json({
-      rv_goal_params: rvGoalParams
+      rv_tasks: rvTasks
     });
   }).catch((error) => res.status(400).send(error));
 });
 
-router.put("/rv-goal-param/", function(req, res) {
-  var individualGoalWeight = req.body.individual_goal_weight;
-  var teamGoalWeight = req.body.team_goal_weight;
-  RvGoalParam.update(
-    { endDate: new Date()},
+router.put("/rv-task/", function(req, res) {
+  var name = req.body.name;
+  var points = req.body.points;
+  var task_number = req.body.task_number;
+  RvTask.update(
+    { endDate: new Date() },
     {
       where: {
+        task_number: task_number,
         startDate: { [Op.lte]: new Date() },
         endDate: {
           [Op.or]: {
@@ -41,13 +43,14 @@ router.put("/rv-goal-param/", function(req, res) {
       }
     }
   ).then(() => {
-    RvGoalParam.create({
-      individualGoalWeight: individualGoalWeight,
-      teamGoalWeight: teamGoalWeight,
+    RvTask.create({
+      name: name,
+      task_number: task_number,
+      points: points,
       startDate: new Date(),
       endDate: null
-    }).then(function(rvGoalParam) {
-      res.json(rvGoalParam)
+    }).then(function(rvTask) {
+      res.json(rvTask);
     })
   });
 });
