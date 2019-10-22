@@ -7,7 +7,7 @@ module.exports = (sequelize, DataTypes) => {
     origination: DataTypes.DECIMAL,
     percentage: DataTypes.DECIMAL,
     remuneration: DataTypes.DECIMAL,
-    baseDate: DataTypes.DATE
+    baseDate: DataTypes.DATEONLY
   }, {
     underscored: true,
     tableName: 'rv_results'
