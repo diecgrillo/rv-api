@@ -1,0 +1,282 @@
+{
+	"info": {
+		"_postman_id": "bcbb4a7a-7f6b-4c43-9395-a259d87b4f11",
+		"name": "rv-api",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "localhost:3000/rv-goal-params",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "localhost:3000/rv-goal-params",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"rv-goal-params"
+					]
+				},
+				"description": "Get rv goal params"
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:3000/rv-goal-params/rv-goal-param",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"start_date\": \"2019-10-14\",\n\t\"individual_goal_weight\": 0.2,\n\t\"team_goal_weight\": 0.8\n}"
+				},
+				"url": {
+					"raw": "localhost:3000/rv-goal-param",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"rv-goal-param"
+					]
+				},
+				"description": "It will set all rv goal params to not active and create new ones accordingly to the requested params"
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:3000/rv-goal-range-params",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "localhost:3000/rv-goal-range-params",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"rv-goal-range-params"
+					]
+				},
+				"description": "get all rv range params"
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:3000/rv-goal-range-params",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"rv_remuneration_points\": [\n\t\t{\n\t\t\t\"min_points\":1300,\n\t\t\t\"value\": 1.05\n\t\t},\n\t\t{\n\t\t\t\"min_points\":1500,\n\t\t\t\"value\": 1.10\n\t\t},\n\t\t{\n\t\t\t\"min_points\":2000,\n\t\t\t\"value\": 1.15\n\t\t}\n\t]\n}"
+				},
+				"url": {
+					"raw": "localhost:3000/rv-remuneration-points",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"rv-remuneration-points"
+					]
+				},
+				"description": "It will set all rv range params to not active and create new ones accordingly to the requested params"
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:3000/rv-remuneration-points",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "localhost:3000/rv-remuneration-points",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"rv-remuneration-points"
+					]
+				},
+				"description": "Get all remuneration points"
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:3000/rv-remuneration-points",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"rv_remuneration_points\": [\n\t\t{\n\t\t\t\"min_points\":1300,\n\t\t\t\"value\": 1.05\n\t\t},\n\t\t{\n\t\t\t\"min_points\":1500,\n\t\t\t\"value\": 1.10\n\t\t},\n\t\t{\n\t\t\t\"min_points\":2000,\n\t\t\t\"value\": 1.15\n\t\t}\n\t]\n}"
+				},
+				"url": {
+					"raw": "localhost:3000/rv-remuneration-points",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"rv-remuneration-points"
+					]
+				},
+				"description": "It will set all rv remuneration points to not active and create new ones accordingly to the requested params"
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:3000/rv-tasks",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "localhost:3000/rv-tasks",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"rv-tasks"
+					]
+				},
+				"description": "Get all rv tasks"
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:3000/rv-tasks/rv-task",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\":\"Repique\",\n\t\"points\": 4\n}"
+				},
+				"url": {
+					"raw": "localhost:3000/rv-tasks/rv-task",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"rv-tasks",
+						"rv-task"
+					]
+				},
+				"description": "It will set all active rv tasks with the requested name to not active, if they exist, and it will create a new one with the passing params"
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:3000/rv-task-results/1?base_date=2019-10-08",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "localhost:3000/rv-agent-task-results/1?base_date=2019-10-08",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"rv-agent-task-results",
+						"1"
+					],
+					"query": [
+						{
+							"key": "base_date",
+							"value": "2019-10-08"
+						}
+					]
+				},
+				"description": "get all rv user task results for a user in a given base_date"
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:3000/rv-results/1?base_date=2019-10-08",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "localhost:3000/rv-results/1?base_date=2019-10-08",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"rv-results",
+						"1"
+					],
+					"query": [
+						{
+							"key": "base_date",
+							"value": "2019-10-08"
+						}
+					]
+				},
+				"description": "get the rv results for a user in a given base_date"
+			},
+			"response": []
+		}
+	]
+}

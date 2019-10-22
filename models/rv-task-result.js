@@ -1,6 +1,6 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
-  const RvAgentTaskResult = sequelize.define('RvAgentTaskResult', {
+  const RvTaskResult = sequelize.define('RvTaskResult', {
     userId: DataTypes.INTEGER,
     taskNumber: DataTypes.INTEGER,
     points: DataTypes.DECIMAL,
@@ -8,10 +8,10 @@ module.exports = (sequelize, DataTypes) => {
     baseDate: DataTypes.DATEONLY
   }, {
     underscored: true,
-    tableName: 'rv_agent_task_results'
+    tableName: 'rv_task_results'
   });
-  RvAgentTaskResult.associate = function(models) {
+  RvTaskResult.associate = function(models) {
     // associations can be defined here
   };
-  return RvAgentTaskResult;
+  return RvTaskResult;
 };

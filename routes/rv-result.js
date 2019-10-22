@@ -1,5 +1,5 @@
 var express = require("express");
-const RvAgentTaskResult = require('../models').RvAgentTaskResult;
+const RvResult = require('../models').RvResult;
 const Sequelize = require('sequelize');
 const Op = Sequelize.Op;
 
@@ -12,15 +12,15 @@ router.get("/:id", function(req, res) {
 
   var firstDay = new Date(date.getFullYear(), date.getMonth(), 1);
   var lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0);
-  RvAgentTaskResult.findAll({
-    attributes: ['id', 'userId', 'taskNumber', 'points', 'taskValue'],
+  RvResult.findOne({
+    attributes: ['id', 'userId', 'value', 'points', 'remuneration', 'origination', 'percentage'],
     where: {
       userId: req.params.id,
       baseDate: { [Op.between]: [firstDay, lastDay] }
     }
-  }).then(function(rvAgentTaskResults) {
+  }).then(function(rvResult) {
     res.json({
-      rv_agent_task_results: rvAgentTaskResults
+      rv_result: rvResult
     });
   }).catch((error) => res.status(400).send(error));
 });

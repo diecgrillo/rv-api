@@ -7,7 +7,8 @@ var rvGoalParamRouter = require('./routes/rv-goal-param');
 var rvGoalRangeParamRouter = require('./routes/rv-goal-range-param');
 var rvRemunerationPointRouter = require('./routes/rv-remuneration-point');
 var rvTaskRouter = require('./routes/rv-task');
-var rvAgentTaskResultRouter = require('./routes/rv-agent-task-result');
+var rvTaskResultRouter = require('./routes/rv-task-result');
+var rvResultRouter = require('./routes/rv-result');
 var indexRouter = require('./routes/index');
 
 var app = express();
@@ -25,7 +26,8 @@ app.use('/rv-goal-params', rvGoalParamRouter);
 app.use('/rv-goal-range-params', rvGoalRangeParamRouter);
 app.use('/rv-remuneration-points', rvRemunerationPointRouter);
 app.use('/rv-tasks', rvTaskRouter);
-app.use('/rv-agent-task-results', rvAgentTaskResultRouter);
+app.use('/rv-task-results', rvTaskResultRouter);
+app.use('/rv-results', rvResultRouter);
 app.use('/', indexRouter);
 
 // catch 404 and forward to error handler

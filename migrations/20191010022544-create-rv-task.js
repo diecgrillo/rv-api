@@ -10,13 +10,14 @@ module.exports = {
       },
       task_number: {
         allowNull: false,
-        autoIncrement: true,
         type: Sequelize.INTEGER
       },
       name: {
+        allowNull: false,
         type: Sequelize.STRING
       },
       points: {
+        defaultValue: 0,
         type: Sequelize.DECIMAL
       },
       start_date: {

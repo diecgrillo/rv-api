@@ -2,7 +2,7 @@
 
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.bulkInsert('rv_agent_task_results', [
+    return queryInterface.bulkInsert('rv_task_results', [
       {
         user_id: 1,
         task_number: 1,
@@ -79,6 +79,6 @@ module.exports = {
   },
 
   down: (queryInterface, Sequelize) => {
-    return queryInterface.bulkDelete('rv_agent_task_results', null, {});
+    return queryInterface.bulkDelete('rv_task_results', null, {});
   }
 };

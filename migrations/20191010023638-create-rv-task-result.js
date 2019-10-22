@@ -1,7 +1,7 @@
 'use strict';
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable('rv_agent_task_results', {
+    return queryInterface.createTable('rv_task_results', {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -10,10 +10,12 @@ module.exports = {
       },
       user_id: {
 	      allowNull: false,
+        unique: 'actions_unique',
         type: Sequelize.INTEGER
       },
       task_number: {
         allowNull: false,
+        unique: 'actions_unique',
         type: Sequelize.INTEGER
       },
       points: {
@@ -21,10 +23,12 @@ module.exports = {
         type: Sequelize.DECIMAL
       },
       task_value: {
+	      defaultValue: 0,
         type: Sequelize.DECIMAL
       },
       base_date: {
 	      allowNull: false,
+        unique: 'actions_unique',
         type: Sequelize.DATEONLY
       },
       created_at: {
@@ -35,9 +39,15 @@ module.exports = {
         allowNull: false,
         type: Sequelize.DATE
       }
+    }, {
+      uniqueKeys: {
+        actions_unique: {
+          fields: ['user_id', 'task_number', 'base_date']
+        }
+      }
     });
   },
   down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('rv_agent_task_results');
+    return queryInterface.dropTable('rv_task_results');
   }
 };
