@@ -1,9 +1,9 @@
-- Modelo de resultados geral
-
-- Validação Banco de Dados
-- Validação Modelo
 - Validação Parâmetros Request
 
 - Autenticação
 
 - Testes Unitários
+
+- Linter
+
+- Única validação do modelo pendente é verificar se tem task ativa com o número antes de atualizar o rv-task-result

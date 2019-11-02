@@ -10,10 +10,6 @@
 			"request": {
 				"method": "GET",
 				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": ""
-				},
 				"url": {
 					"raw": "localhost:3000/rv-goal-params",
 					"host": [
@@ -31,7 +27,7 @@
 		{
 			"name": "localhost:3000/rv-goal-params/rv-goal-param",
 			"request": {
-				"method": "PUT",
+				"method": "POST",
 				"header": [
 					{
 						"key": "Content-Type",
@@ -42,15 +38,16 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"start_date\": \"2019-10-14\",\n\t\"individual_goal_weight\": 0.2,\n\t\"team_goal_weight\": 0.8\n}"
+					"raw": "{\n\t\"individual_goal_weight\": 0.8,\n\t\"team_goal_weight\": 0.2\n}"
 				},
 				"url": {
-					"raw": "localhost:3000/rv-goal-param",
+					"raw": "localhost:3000/rv-goal-params/rv-goal-param",
 					"host": [
 						"localhost"
 					],
 					"port": "3000",
 					"path": [
+						"rv-goal-params",
 						"rv-goal-param"
 					]
 				},
@@ -63,10 +60,6 @@
 			"request": {
 				"method": "GET",
 				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": ""
-				},
 				"url": {
 					"raw": "localhost:3000/rv-goal-range-params",
 					"host": [
@@ -84,7 +77,7 @@
 		{
 			"name": "localhost:3000/rv-goal-range-params",
 			"request": {
-				"method": "PUT",
+				"method": "POST",
 				"header": [
 					{
 						"key": "Content-Type",
@@ -95,16 +88,16 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"rv_remuneration_points\": [\n\t\t{\n\t\t\t\"min_points\":1300,\n\t\t\t\"value\": 1.05\n\t\t},\n\t\t{\n\t\t\t\"min_points\":1500,\n\t\t\t\"value\": 1.10\n\t\t},\n\t\t{\n\t\t\t\"min_points\":2000,\n\t\t\t\"value\": 1.15\n\t\t}\n\t]\n}"
+					"raw": "{\n\t\"rv_goal_range_params\": [\n\t\t{\n            \"percentage\": 0.75\n        },\n        {\n            \"percentage\": 0.85\n        },\n        {\n            \"percentage\": 0.95\n        },\n        {\n            \"percentage\": 1.05\n        }\n\t]\n}"
 				},
 				"url": {
-					"raw": "localhost:3000/rv-remuneration-points",
+					"raw": "localhost:3000/rv-goal-range-params",
 					"host": [
 						"localhost"
 					],
 					"port": "3000",
 					"path": [
-						"rv-remuneration-points"
+						"rv-goal-range-params"
 					]
 				},
 				"description": "It will set all rv range params to not active and create new ones accordingly to the requested params"
@@ -116,10 +109,6 @@
 			"request": {
 				"method": "GET",
 				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": ""
-				},
 				"url": {
 					"raw": "localhost:3000/rv-remuneration-points",
 					"host": [
@@ -137,7 +126,7 @@
 		{
 			"name": "localhost:3000/rv-remuneration-points",
 			"request": {
-				"method": "PUT",
+				"method": "POST",
 				"header": [
 					{
 						"key": "Content-Type",
@@ -148,7 +137,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"rv_remuneration_points\": [\n\t\t{\n\t\t\t\"min_points\":1300,\n\t\t\t\"value\": 1.05\n\t\t},\n\t\t{\n\t\t\t\"min_points\":1500,\n\t\t\t\"value\": 1.10\n\t\t},\n\t\t{\n\t\t\t\"min_points\":2000,\n\t\t\t\"value\": 1.15\n\t\t}\n\t]\n}"
+					"raw": "{\n\t\"rv_remuneration_points\": [\n\t\t{\n\t\t\t\"min_points\":1100,\n\t\t\t\"value\": 1\n\t\t},\n\t\t{\n\t\t\t\"min_points\":1500,\n\t\t\t\"value\": 1.05\n\t\t},\n\t\t{\n\t\t\t\"min_points\":2000,\n\t\t\t\"value\": 1.15\n\t\t}\n\t]\n}"
 				},
 				"url": {
 					"raw": "localhost:3000/rv-remuneration-points",
@@ -165,14 +154,134 @@
 			"response": []
 		},
 		{
+			"name": "localhost:3000/rv-results/1?base_date=2019-10-08",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:3000/rv-results/1?base_date=2019-10-09",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"rv-results",
+						"1"
+					],
+					"query": [
+						{
+							"key": "base_date",
+							"value": "2019-10-09"
+						}
+					]
+				},
+				"description": "get the rv results for a user in a given base_date"
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:3000/rv-results",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"rv_results\": [\n\t  {\n\t\t\"user_id\": 1,\n        \"value\": \"2000\",\n        \"points\": \"1500\",\n        \"remuneration\": \"1\",\n        \"origination\": \"400000\",\n        \"percentage\": \"0.9\",\n        \"base_date\": \"2019-10-03\"\n      },\n      {\n\t\t\"user_id\": 2,\n        \"value\": \"3000\",\n        \"points\": \"3500\",\n        \"remuneration\": \"1\",\n        \"origination\": \"600000\",\n        \"percentage\": \"0.9\",\n        \"base_date\": \"2019-11-03\"\n      }\n\t]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/rv-results/",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"rv-results",
+						""
+					]
+				},
+				"description": "post rv results for users"
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:3000/rv-task-results/1?base_date=2019-10-08",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:3000/rv-task-results/2?base_date=2019-11-09",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"rv-task-results",
+						"2"
+					],
+					"query": [
+						{
+							"key": "base_date",
+							"value": "2019-11-09"
+						}
+					]
+				},
+				"description": "get all rv user task results for a user in a given base_date"
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:3000/rv-task-results/",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"rv_task_results\": [\n\t  {\n\t\t\"user_id\": 2,\n        \"task_number\": 1,\n        \"points\": 30,\n        \"task_value\": 33,\n        \"base_date\": \"2019-11-03\"\n      },\n      {\n      \t\"user_id\": 2,\n        \"task_number\": 2,\n        \"points\": 20,\n        \"task_value\": 43,\n        \"base_date\": \"2019-11-04\"\n      },\n      {\n        \"user_id\": 2,\n        \"task_number\": 3,\n        \"points\": 60,\n        \"task_value\": 53,\n        \"base_date\": \"2019-11-06\"\n      }\n\t]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/rv-task-results/",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"rv-task-results",
+						""
+					]
+				},
+				"description": "Creates or updates the user task results for the given basedate"
+			},
+			"response": []
+		},
+		{
 			"name": "localhost:3000/rv-tasks",
 			"request": {
 				"method": "GET",
 				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": ""
-				},
 				"url": {
 					"raw": "localhost:3000/rv-tasks",
 					"host": [
@@ -190,7 +299,7 @@
 		{
 			"name": "localhost:3000/rv-tasks/rv-task",
 			"request": {
-				"method": "PUT",
+				"method": "POST",
 				"header": [
 					{
 						"key": "Content-Type",
@@ -201,7 +310,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"name\":\"Repique\",\n\t\"points\": 4\n}"
+					"raw": "{\n\t\"task_number\": 4,\n\t\"name\":\"Rolagem\",\n\t\"points\": -300\n}"
 				},
 				"url": {
 					"raw": "localhost:3000/rv-tasks/rv-task",
@@ -215,66 +324,6 @@
 					]
 				},
 				"description": "It will set all active rv tasks with the requested name to not active, if they exist, and it will create a new one with the passing params"
-			},
-			"response": []
-		},
-		{
-			"name": "localhost:3000/rv-task-results/1?base_date=2019-10-08",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": ""
-				},
-				"url": {
-					"raw": "localhost:3000/rv-agent-task-results/1?base_date=2019-10-08",
-					"host": [
-						"localhost"
-					],
-					"port": "3000",
-					"path": [
-						"rv-agent-task-results",
-						"1"
-					],
-					"query": [
-						{
-							"key": "base_date",
-							"value": "2019-10-08"
-						}
-					]
-				},
-				"description": "get all rv user task results for a user in a given base_date"
-			},
-			"response": []
-		},
-		{
-			"name": "localhost:3000/rv-results/1?base_date=2019-10-08",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": ""
-				},
-				"url": {
-					"raw": "localhost:3000/rv-results/1?base_date=2019-10-08",
-					"host": [
-						"localhost"
-					],
-					"port": "3000",
-					"path": [
-						"rv-results",
-						"1"
-					],
-					"query": [
-						{
-							"key": "base_date",
-							"value": "2019-10-08"
-						}
-					]
-				},
-				"description": "get the rv results for a user in a given base_date"
 			},
 			"response": []
 		}

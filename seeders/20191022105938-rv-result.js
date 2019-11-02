@@ -10,7 +10,7 @@ module.exports = {
         remuneration: 1.0,
         percentage: 0.9,
         origination: 400000,
-        base_date: new Date(),
+        base_date: new Date((new Date()).getFullYear(), (new Date()).getMonth() + 1, 0),
         created_at: new Date(),
         updated_at: new Date()
       },
@@ -21,7 +21,7 @@ module.exports = {
         remuneration: 1.1,
         percentage: 0.95,
         origination: 600000,
-        base_date: new Date(),
+        base_date: new Date((new Date()).getFullYear(), (new Date()).getMonth() + 1, 0),
         created_at: new Date(),
         updated_at: new Date()
       },

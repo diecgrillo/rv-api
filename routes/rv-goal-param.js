@@ -1,22 +1,12 @@
 var express = require("express");
+var db = require('../models/index');
 const RvGoalParam = require('../models').RvGoalParam;
-const Sequelize = require('sequelize');
-const Op = Sequelize.Op;
 
 var router  = express.Router();
 
 router.get("/", function(req, res) {
-  RvGoalParam.findAll({
-    attributes: ['id', 'individualGoalWeight', 'teamGoalWeight'],
-    where: {
-      startDate: { [Op.lte]: new Date() },
-      endDate: {
-        [Op.or]: {
-          [Op.gt]: new Date(),
-          [Op.eq]: null
-        }
-      }
-    }
+  RvGoalParam.scope('actives').findAll({
+    attributes: ['id', 'individualGoalWeight', 'teamGoalWeight']
   }).then(function(rvGoalParams) {
     res.json({
       rv_goal_params: rvGoalParams
@@ -24,31 +14,24 @@ router.get("/", function(req, res) {
   }).catch((error) => res.status(400).send(error));
 });
 
-router.put("/rv-goal-param/", function(req, res) {
+router.post("/rv-goal-param/", function(req, res) {
   var individualGoalWeight = req.body.individual_goal_weight;
   var teamGoalWeight = req.body.team_goal_weight;
-  RvGoalParam.update(
-    { endDate: new Date()},
-    {
-      where: {
-        startDate: { [Op.lte]: new Date() },
-        endDate: {
-          [Op.or]: {
-            [Op.gt]: new Date(),
-            [Op.eq]: null
-          }
-        }
-      }
-    }
-  ).then(() => {
-    RvGoalParam.create({
-      individualGoalWeight: individualGoalWeight,
-      teamGoalWeight: teamGoalWeight,
-      startDate: new Date(),
-      endDate: null
-    }).then(function(rvGoalParam) {
-      res.json(rvGoalParam)
-    })
+  db.sequelize.transaction(function(t){
+    return RvGoalParam.scope('actives').update(
+      { endDate: new Date() }, { transaction: t }
+    ).then(() => {
+      return RvGoalParam.create({
+        individualGoalWeight: individualGoalWeight,
+        teamGoalWeight: teamGoalWeight,
+        startDate: new Date(),
+        endDate: null
+      }, { transaction: t }).then(function(rvGoalParam) {
+        res.json(rvGoalParam);
+      });
+    });
+  }).catch(function(error){
+    res.status(400).send(error.message);
   });
 });
 
