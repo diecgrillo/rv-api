@@ -17,10 +17,25 @@ module.exports = (sequelize, DataTypes) => {
     tableName: 'rv_goal_range_params',
     hooks: {
       beforeBulkCreate: function(params, options) {
-        percentages = params.map((param) => { return param["percentage"]})
+        var percentages = [];
+        params.forEach((param) => {
+          var startDate = new Date(param.startDate);
+          var endDate = new Date(param.endDate);
+          var currentDate = new Date();
+          currentDate.setHours(0,0,0,0)
+          startDate.setHours(0,0,0,0)
+          endDate.setHours(0,0,0,0)
+
+
+          // only check for active params when the param to be created will be active
+          if ((param.startDate && startDate <= currentDate) &&
+            (param.endDate == null || endDate > currentDate))
+            percentages.push(param["percentage"]);
+        });
         if ((new Set(percentages)).size !== percentages.length){
           throw new Error('Cannot insert the same percentage more than once.');
         }
+
         return RvGoalRangeParam.scope('actives').findAll({
           where: {
             percentage: { [Op.in]: percentages }
@@ -31,7 +46,8 @@ module.exports = (sequelize, DataTypes) => {
             if (!Array.isArray(activePercentages) || activePercentages.length > 0) {
               throw new Error('Percentages ' + activePercentages + ' are already active.');
             }
-        });
+          }
+        );
       }
     },
     scopes: {

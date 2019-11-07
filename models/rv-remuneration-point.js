@@ -47,8 +47,8 @@ module.exports = (sequelize, DataTypes) => {
             activePoints = results.map((param) => { return param["minPoints"]})
             if (!Array.isArray(activePoints) || !Array.isArray(activeValues) ||
                 activeValues.length > 0 || activePoints.length > 0) {
-              throw new Error('There is already a remuneration active for the provided points or values:\
-                points= ' + activePoints + ', values= ' + activeValues);
+              throw new Error('There is already a remuneration active for the provided points or values: ' +
+                'points= ' + activePoints + ', values= ' + activeValues);
             }
         });
       }

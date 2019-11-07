@@ -14,14 +14,25 @@ module.exports = (sequelize, DataTypes) => {
     tableName: 'rv_tasks',
     hooks: {
       beforeCreate: function(task, options) {
-        return RvTask.scope(
-          { method: ['active', task.taskNumber]}
-        ).findAll({ transaction: options.transaction }).then(
-          function (tasks) {
-            if (!Array.isArray(tasks) || tasks.length > 0) {
-                throw new Error('The task ' + task.taskNumber + ' is already active.');
+        var startDate = new Date(task.startDate);
+        var endDate = new Date(task.endDate);
+        var currentDate = new Date();
+        currentDate.setHours(0,0,0,0)
+        startDate.setHours(0,0,0,0)
+        endDate.setHours(0,0,0,0)
+
+        // only check for active tasks when the task to be created will be active
+        if ((task.startDate && startDate <= currentDate) &&
+          (task.endDate == null || endDate > currentDate))
+          return RvTask.scope(
+            { method: ['active', task.taskNumber]}
+          ).findAll({ transaction: options.transaction }).then(
+            function (tasks) {
+              if (!Array.isArray(tasks) || tasks.length > 0) {
+                  throw new Error('The task ' + task.taskNumber + ' is already active.');
+              }
             }
-        });
+          );
       }
     },
     scopes: {

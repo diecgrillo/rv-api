@@ -25,6 +25,17 @@ module.exports = (sequelize, DataTypes) => {
         fields: ['user_id', 'task_number', 'base_date']
       }
     },
+    hooks: {
+      beforeCreate: function(taskResult) {
+        var date;
+        if (taskResult.baseDate)
+          date = new Date(taskResult.baseDate)
+        else
+          date = new Date();
+
+        taskResult.baseDate = new Date(date.getFullYear(), date.getMonth() + 1, 0);
+      }
+    },
     scopes: {
       fromBaseDate: function(userId, baseDate) {
         var firstDay = new Date(baseDate.getFullYear(), baseDate.getMonth(), 1);

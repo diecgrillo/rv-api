@@ -15,7 +15,6 @@ module.exports = (sequelize, DataTypes) => {
       validWeight() {
         if (this.individualGoalWeight && this.teamGoalWeight){
           if (this.individualGoalWeight + this.teamGoalWeight != 1){
-            console.log(this.individualGoalWeight + ' ' + this.teamGoalWeight)
             throw new Error('Sum of team goal and individual goal should be 1. individual= ' + this.teamGoalWeight + ', team= ' + this.individualGoalWeight);
           }
         }
@@ -23,12 +22,23 @@ module.exports = (sequelize, DataTypes) => {
     },
     hooks: {
       beforeCreate: function(param, options) {
-        return RvGoalParam.scope('actives').findAll({transaction: options.transaction}).then(
-          function (params) {
-            if (!Array.isArray(params) || params.length > 0) {
-                throw new Error('Only one active param is allowed.');
+        var startDate = new Date(param.startDate);
+        var endDate = new Date(param.endDate);
+        var currentDate = new Date();
+        currentDate.setHours(0,0,0,0)
+        startDate.setHours(0,0,0,0)
+        endDate.setHours(0,0,0,0)
+
+        // only check for active params when the created param will be active
+        if ((param.startDate && startDate <= currentDate) &&
+          (param.endDate == null || endDate > currentDate))
+          return RvGoalParam.scope('actives').findAll({transaction: options.transaction}).then(
+            function (params) {
+              if (!Array.isArray(params) || params.length > 0) {
+                  throw new Error('Only one active param is allowed.');
+              }
             }
-        });
+          );
       }
     },
     scopes: {

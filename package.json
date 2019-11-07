@@ -3,13 +3,17 @@
  "private": true,
  "scripts": {
   "start": "node ./bin/www",
-  "start.dev": "nodemon ./bin/www"
+  "start.dev": "nodemon ./bin/www",
+  "test": "NODE_ENV=test mocha --recursive --watch"
  },
  "dependencies": {
   "body-parser": "^1.19.0",
+  "chai": "^4.2.0",
+  "chai-as-promised": "^7.1.1",
   "ejs": "^2.7.1",
   "express": "^4.17.1",
   "http-errors": "^1.7.3",
+  "mocha": "^6.2.2",
   "morgan": "^1.9.1",
   "path": "^0.12.7",
   "pg": "^7.12.1",

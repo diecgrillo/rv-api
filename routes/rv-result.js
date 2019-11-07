@@ -22,7 +22,6 @@ router.post("/", function(req, res) {
   var rvResults = rvResultsRequest.map(function(rvResult) {
     // sets the base date to the last day of month
     var baseDate = rvResult.base_date ? new Date(rvResult.base_date) : new Date();
-    console.log(baseDate)
     return {
       userId: rvResult.user_id,
       points: rvResult.points,

@@ -10,12 +10,12 @@
     }
   },
   "test": {
-    "username": "root",
-    "password": null,
-    "database": "database_test",
-    "host": "127.0.0.1",
+    "username": "user",
+    "password": "pass",
+    "database": "test",
+    "host": "postgres",
     "dialect": "postgres",
-    "operatorsAliases": false,
+    "logging": false,
     "define" : {
      "underscored" : true
     }
@@ -26,7 +26,6 @@
     "database": "database_production",
     "host": "127.0.0.1",
     "dialect": "postgres",
-    "operatorsAliases": false,
     "define" : {
      "underscored" : true
     }

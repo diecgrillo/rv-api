@@ -35,16 +35,20 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     underscored: true,
     tableName: 'rv_results',
+    uniqueKeys: {
+      actions_unique: {
+        fields: ['user_id', 'base_date']
+      }
+    },
     hooks: {
       beforeCreate: function(result) {
-        RvResult.scope({
-          method: ['fromBaseDate', result.userId, result.baseDate]
-        }).findAll().then(
-          function (results) {
-            if (!Array.isArray(results) || results.length > 0) {
-                throw new Error('Only one rv result for this user is allowed per base date.');
-            }
-        });
+        var date;
+        if (result.baseDate)
+          date = new Date(result.baseDate)
+        else
+          date = new Date();
+
+        result.baseDate = new Date(date.getFullYear(), date.getMonth() + 1, 0);
       }
     },
     scopes: {
