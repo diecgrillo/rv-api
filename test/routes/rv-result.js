@@ -2,6 +2,7 @@ const RvResult = require('../../models').RvResult;
 const Sequelize = require('sequelize');
 const config = require(__dirname + '/../../config/config.json')['test'];
 const sequelize = new Sequelize(config.database, config.username, config.password, config);
+const sinon = require("sinon");
 var chai = require("chai");
 var expect = chai.expect;
 var supertest = require("supertest");
@@ -78,6 +79,16 @@ describe("rv-results routes", function() {
       .expect(200, rvResults)
       .end(done);
     });
+    it("it responds with 400 when there is some exception trying to get the results", function(done){
+      stub = sinon.stub(RvResult, "findAll").rejects(new Error('error in findAll function'))
+      supertest(app)
+      .get("/rv-results/1")
+      .expect(function(res){
+        stub.restore();
+      })
+      .expect(400, "error in findAll function")
+      .end(done);
+    });
   });
   describe("post /rv-results", function() {
     it("when there is already an active result, it updates the existing result", function(done){
@@ -148,6 +159,66 @@ describe("rv-results routes", function() {
         expect(res.body[0][1]).to.equal(result[0][1])
       })
       .expect(200)
+      .end(done);
+    });
+    it("it fails to create a new rv result when the value is negative", function(done){
+      supertest(app)
+      .post("/rv-results/")
+      .send({
+        "rv_results": [{
+          "user_id": 2,
+          "points": 40,
+          "value": -70,
+          "origination": 800000,
+          "percentage": 0.95,
+          "remuneration": 1.15,
+          "base_date": "2019-09-09"
+        }]
+      })
+      .expect(function(res){
+        expect(res.text).to.equal("Validation error: Validation min on value failed");
+      })
+      .expect(400)
+      .end(done);
+    });
+    it("it fails to create a new rv result when the percentage is negative", function(done){
+      supertest(app)
+      .post("/rv-results/")
+      .send({
+        "rv_results": [{
+          "user_id": 2,
+          "points": 40,
+          "value": 70,
+          "origination": 800000,
+          "percentage": -0.95,
+          "remuneration": 1.15,
+          "base_date": "2019-09-09"
+        }]
+      })
+      .expect(function(res){
+        expect(res.text).to.equal("Validation error: Validation min on percentage failed");
+      })
+      .expect(400)
+      .end(done);
+    });
+    it("it fails to create a new rv result when the remuneration is negative", function(done){
+      supertest(app)
+      .post("/rv-results/")
+      .send({
+        "rv_results": [{
+          "user_id": 2,
+          "points": 40,
+          "value": 70,
+          "origination": 800000,
+          "percentage": 0.95,
+          "remuneration": -1.15,
+          "base_date": "2019-09-09"
+        }]
+      })
+      .expect(function(res){
+        expect(res.text).to.equal("Validation error: Validation min on remuneration failed");
+      })
+      .expect(400)
       .end(done);
     });
   });

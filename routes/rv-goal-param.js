@@ -11,7 +11,7 @@ router.get("/", function(req, res) {
     res.json({
       rv_goal_params: rvGoalParams
     });
-  }).catch((error) => res.status(400).send(error));
+  }).catch((error) => res.status(400).send(error.message));
 });
 
 router.post("/rv-goal-param/", function(req, res) {

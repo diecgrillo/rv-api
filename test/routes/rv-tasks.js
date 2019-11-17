@@ -2,6 +2,7 @@ const RvTask = require('../../models').RvTask;
 const Sequelize = require('sequelize');
 const config = require(__dirname + '/../../config/config.json')['test'];
 const sequelize = new Sequelize(config.database, config.username, config.password, config);
+const sinon = require("sinon");
 var chai = require("chai");
 var expect = chai.expect;
 var supertest = require("supertest");
@@ -59,6 +60,16 @@ describe("rv-task routes", function() {
       .expect(200, rvTasks)
       .end(done);
     });
+    it("it responds with 400 when there is some exception trying to get the active rv tasks", function(done){
+      stub = sinon.stub(RvTask, "findAll").rejects(new Error('error in findAll function'))
+      supertest(app)
+      .get("/rv-tasks/")
+      .expect(function(res){
+        stub.restore();
+      })
+      .expect(400, "error in findAll function")
+      .end(done);
+    });
   });
   describe("post /rv-tasks/rv-task", function() {
     it("it creates a new task", function(done){
@@ -78,6 +89,22 @@ describe("rv-task routes", function() {
         expect(res.body).to.deep.include(rvTask)
       })
       .expect(200)
+      .end(done);
+    });
+    it("it responds with 400 when there is some exception trying to update a task", function(done){
+      stub = sinon.stub(RvTask, "update").rejects(new Error('error in update function'))
+
+      supertest(app)
+      .post("/rv-tasks/rv-task")
+      .send({
+        "task_number": 3,
+	      "name":"Rolagem",
+	      "points": -300
+      })
+      .expect(function(res){
+        stub.restore();
+      })
+      .expect(400, "error in update function")
       .end(done);
     });
   });

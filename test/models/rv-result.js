@@ -24,8 +24,7 @@ describe("rv-results", function() {
       value: 300.00,
       origination: 100000,
       percentage: 0.9,
-      remuneration: 1.1,
-      baseDate: new Date()
+      remuneration: 1.1
     }).then(
       (result) => { result1 = result.dataValues; }
     );

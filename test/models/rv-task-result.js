@@ -22,8 +22,7 @@ describe("rv-task-results", function() {
       userId: 1,
       taskNumber: 1,
       points: 10,
-      taskValue: 30,
-      baseDate: new Date()
+      taskValue: 30
     }).then(
       (taskResult) => { taskResult1 = taskResult.dataValues; }
     );

@@ -6,7 +6,8 @@
   "start.dev": "nodemon ./bin/www",
   "test": "NODE_ENV=test mocha --recursive --watch",
   "debug.dev": "nodemon --inspect-brk=0.0.0.0:9229 ./bin/www",
-  "debug.test": "NODE_ENV=test mocha --watch --recursive --timeout 60000 --inspect-brk=0.0.0.0:9229"
+  "debug.test": "NODE_ENV=test mocha --watch --recursive --timeout 60000 --inspect-brk=0.0.0.0:9229",
+  "coverage": "NODE_ENV=test istanbul cover _mocha -- ./test/* --recursive"
  },
  "dependencies": {
   "body-parser": "^1.19.0",
@@ -23,8 +24,10 @@
  "devDependencies": {
   "chai": "^4.2.0",
   "chai-as-promised": "^7.1.1",
+  "istanbul": "^0.4.5",
   "mocha": "^6.2.2",
   "nodemon": "^1.19.4",
+  "sinon": "^7.5.0",
   "supertest": "^4.0.2"
  }
 }

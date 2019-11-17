@@ -2,6 +2,7 @@ const RvTaskResult = require('../../models').RvTaskResult;
 const Sequelize = require('sequelize');
 const config = require(__dirname + '/../../config/config.json')['test'];
 const sequelize = new Sequelize(config.database, config.username, config.password, config);
+const sinon = require("sinon");
 var chai = require("chai");
 var expect = chai.expect;
 var supertest = require("supertest");
@@ -91,6 +92,16 @@ describe("rv-task-results routes", function() {
       .expect(200, rvTaskResults)
       .end(done);
     });
+    it("it responds with 400 when there is some exception trying to get the rv task results", function(done){
+      stub = sinon.stub(RvTaskResult, "findAll").rejects(new Error('error in findAll function'))
+      supertest(app)
+      .get("/rv-task-results/1")
+      .expect(function(res){
+        stub.restore();
+      })
+      .expect(400, "error in findAll function")
+      .end(done);
+    });
   });
   describe("post /rv-task-results", function() {
     it("when there is already an active task resutl, it updates the existing task result", function(done){
@@ -153,6 +164,26 @@ describe("rv-task-results routes", function() {
         expect(res.body[0][1]).to.equal(taskResult[0][1])
       })
       .expect(200)
+      .end(done);
+    });
+    it("it responds with 400 when there is some exception trying to update a task", function(done){
+      stub = sinon.stub(RvTaskResult, "upsert").rejects(new Error('error in upsert function'))
+
+      supertest(app)
+      .post("/rv-task-results/")
+      .send({
+        "rv_task_results": [{
+  		    "user_id": 2,
+          "task_number": 1,
+          "points": 30,
+          "task_value": 33,
+          "base_date": "2019-11-03"
+        }]
+      })
+      .expect(function(res){
+        stub.restore();
+      })
+      .expect(400, "error in upsert function")
       .end(done);
     });
   });

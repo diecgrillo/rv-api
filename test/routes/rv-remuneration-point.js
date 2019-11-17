@@ -2,6 +2,7 @@ const RvRemunerationPoint = require('../../models').RvRemunerationPoint;
 const Sequelize = require('sequelize');
 const config = require(__dirname + '/../../config/config.json')['test'];
 const sequelize = new Sequelize(config.database, config.username, config.password, config);
+const sinon = require("sinon");
 var chai = require("chai");
 var expect = chai.expect;
 var supertest = require("supertest");
@@ -54,6 +55,16 @@ describe("rv-remuneration-point routes", function() {
       supertest(app)
       .get("/rv-remuneration-points/")
       .expect(200, rvRemunerationPoints)
+      .end(done);
+    });
+    it("it responds with 400 when there is some exception trying to get the active remuneration points", function(done){
+      stub = sinon.stub(RvRemunerationPoint, "findAll").rejects(new Error('error in findAll function'))
+      supertest(app)
+      .get("/rv-remuneration-points/")
+      .expect(function(res){
+        stub.restore();
+      })
+      .expect(400, "error in findAll function")
       .end(done);
     });
   });

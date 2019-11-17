@@ -2,6 +2,7 @@ const RvGoalParam = require('../../models').RvGoalParam;
 const Sequelize = require('sequelize');
 const config = require(__dirname + '/../../config/config.json')['test'];
 const sequelize = new Sequelize(config.database, config.username, config.password, config);
+const sinon = require("sinon");
 var chai = require("chai");
 var expect = chai.expect;
 var supertest = require("supertest");
@@ -47,6 +48,16 @@ describe("rv-goal-param routes", function() {
       supertest(app)
       .get("/rv-goal-params/")
       .expect(200, rvGoalParams)
+      .end(done);
+    });
+    it("it responds with 400 when there is some exception trying to get the active goal params", function(done){
+      stub = sinon.stub(RvGoalParam, "findAll").rejects(new Error('error in findAll function'))
+      supertest(app)
+      .get("/rv-goal-params/")
+      .expect(function(res){
+        stub.restore();
+      })
+      .expect(400, "error in findAll function")
       .end(done);
     });
   });

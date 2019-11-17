@@ -11,7 +11,7 @@ router.get("/", function(req, res) {
     res.json({
       rv_remuneration_points: rvRemunerationPoints
     });
-  }).catch((error) => res.status(400).send(error));
+  }).catch((error) => res.status(400).send(error.message));
 });
 
 router.post("/", function(req, res) {
