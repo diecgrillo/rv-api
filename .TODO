@@ -2,8 +2,9 @@
 
 - Autenticação
 
-- Testes Unitários nos routes
-
 - Linter
+- Code coverage
 
 - Única validação do modelo pendente é verificar se tem task ativa com o número antes de atualizar o rv-task-result
+
+to debug tests use docker-compose run --rm -p 9229:9229 app npm run debug

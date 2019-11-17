@@ -37,7 +37,7 @@ router.post("/", function(req, res) {
     var promises = []
     rvTaskResults.forEach(function(rvTaskResult){
       var newPromise = RvTaskResult.upsert(rvTaskResult, {
-        returning: true, transaction: t, logging: true
+        returning: true, transaction: t
       });
       promises.push(newPromise);
     });
