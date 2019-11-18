@@ -1,23 +1,26 @@
-var express = require("express");
+'use strict';
+var express = require('express');
 var db = require('../models/index');
 const RvResult = require('../models').RvResult;
 
-var router  = express.Router();
+var router = express.Router();
 
-router.get("/:id", function(req, res) {
+router.get('/:id', function(req, res) {
   var baseDate = req.query.base_date ? new Date(req.query.base_date) : new Date();
   RvResult.scope(
-    { method: ['fromBaseDate', req.params.id, baseDate]}
+    { method: ['fromBaseDate', req.params.id, baseDate]},
   ).findOne({
-    attributes: ['id', 'userId', 'value', 'points', 'remuneration', 'origination', 'percentage', 'baseDate']
+    attributes: [
+      'id', 'userId', 'value', 'points', 'remuneration', 'origination', 'percentage', 'baseDate',
+    ],
   }).then(function(rvResult) {
     res.json({
-      rv_result: rvResult
+      rv_result: rvResult,
     });
   }).catch((error) => res.status(400).send(error.message));
 });
 
-router.post("/", function(req, res) {
+router.post('/', function(req, res) {
   var rvResultsRequest = req.body.rv_results;
   var rvResults = rvResultsRequest.map(function(rvResult) {
     // sets the base date to the last day of month
@@ -29,19 +32,19 @@ router.post("/", function(req, res) {
       origination: rvResult.origination,
       percentage: rvResult.percentage,
       remuneration: rvResult.remuneration,
-      baseDate: new Date(baseDate.getFullYear(), baseDate.getMonth() + 1, 0)
-    }
+      baseDate: new Date(baseDate.getFullYear(), baseDate.getMonth() + 1, 0),
+    };
   });
   db.sequelize.transaction(function(t){
-    var promises = []
+    var promises = [];
     rvResults.forEach(function(rvResult){
       var newPromise = RvResult.upsert(rvResult, {
-        returning: true, transaction: t
+        returning: true, transaction: t,
       });
       promises.push(newPromise);
     });
     return Promise.all(promises).then(function(rvResults){
-      res.json(rvResults)
+      res.json(rvResults);
     });
   }).catch(function(error){
     res.status(400).send(error.message);

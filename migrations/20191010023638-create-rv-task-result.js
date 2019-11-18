@@ -6,48 +6,48 @@ module.exports = {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
       },
       user_id: {
-	      allowNull: false,
+        allowNull: false,
         unique: 'actions_unique',
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
       },
       task_number: {
         allowNull: false,
         unique: 'actions_unique',
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
       },
       points: {
-	      defaultValue: 0,
-        type: Sequelize.DECIMAL
+        defaultValue: 0,
+        type: Sequelize.DECIMAL,
       },
       task_value: {
-	      defaultValue: 0,
-        type: Sequelize.DECIMAL
+        defaultValue: 0,
+        type: Sequelize.DECIMAL,
       },
       base_date: {
-	      allowNull: false,
+        allowNull: false,
         unique: 'actions_unique',
-        type: Sequelize.DATEONLY
+        type: Sequelize.DATEONLY,
       },
       created_at: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
       },
       updated_at: {
         allowNull: false,
-        type: Sequelize.DATE
-      }
+        type: Sequelize.DATE,
+      },
     }, {
       uniqueKeys: {
         actions_unique: {
-          fields: ['user_id', 'task_number', 'base_date']
-        }
-      }
+          fields: ['user_id', 'task_number', 'base_date'],
+        },
+      },
     });
   },
   down: (queryInterface, Sequelize) => {
     return queryInterface.dropTable('rv_task_results');
-  }
+  },
 };

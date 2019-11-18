@@ -9,7 +9,7 @@ module.exports = {
         start_date: new Date(),
         end_date: null,
         created_at: new Date(),
-        updated_at: new Date()
+        updated_at: new Date(),
       },
       {
         min_points: 1500,
@@ -17,7 +17,7 @@ module.exports = {
         start_date: new Date(),
         end_date: null,
         created_at: new Date(),
-        updated_at: new Date()
+        updated_at: new Date(),
       },
       {
         min_points: 2000,
@@ -25,12 +25,12 @@ module.exports = {
         start_date: new Date(),
         end_date: null,
         created_at: new Date(),
-        updated_at: new Date()
-      }
+        updated_at: new Date(),
+      },
     ], {});
   },
 
   down: (queryInterface, Sequelize) => {
     return queryInterface.bulkDelete('rv_remuneration_points', null, {});
-  }
+  },
 };

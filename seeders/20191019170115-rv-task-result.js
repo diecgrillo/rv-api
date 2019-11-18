@@ -10,7 +10,7 @@ module.exports = {
         task_value: 20,
         base_date: new Date((new Date()).getFullYear(), (new Date()).getMonth() + 1, 0),
         created_at: new Date(),
-        updated_at: new Date()
+        updated_at: new Date(),
       },
       {
         user_id: 1,
@@ -19,7 +19,7 @@ module.exports = {
         task_value: 20,
         base_date: new Date((new Date()).getFullYear(), (new Date()).getMonth() + 1, 0),
         created_at: new Date(),
-        updated_at: new Date()
+        updated_at: new Date(),
       },
       {
         user_id: 1,
@@ -28,7 +28,7 @@ module.exports = {
         task_value: 20,
         base_date: new Date((new Date()).getFullYear(), (new Date()).getMonth() + 1, 0),
         created_at: new Date(),
-        updated_at: new Date()
+        updated_at: new Date(),
       },
       {
         user_id: 1,
@@ -37,7 +37,7 @@ module.exports = {
         task_value: 20,
         base_date: new Date((new Date()).getFullYear(), (new Date()).getMonth() + 1, 0),
         created_at: new Date(),
-        updated_at: new Date()
+        updated_at: new Date(),
       },
       {
         user_id: 2,
@@ -46,7 +46,7 @@ module.exports = {
         task_value: 20,
         base_date: new Date((new Date()).getFullYear(), (new Date()).getMonth() + 1, 0),
         created_at: new Date(),
-        updated_at: new Date()
+        updated_at: new Date(),
       },
       {
         user_id: 2,
@@ -55,7 +55,7 @@ module.exports = {
         task_value: 20,
         base_date: new Date((new Date()).getFullYear(), (new Date()).getMonth() + 1, 0),
         created_at: new Date(),
-        updated_at: new Date()
+        updated_at: new Date(),
       },
       {
         user_id: 2,
@@ -64,7 +64,7 @@ module.exports = {
         task_value: 20,
         base_date: new Date((new Date()).getFullYear(), (new Date()).getMonth() + 1, 0),
         created_at: new Date(),
-        updated_at: new Date()
+        updated_at: new Date(),
       },
       {
         user_id: 2,
@@ -73,12 +73,12 @@ module.exports = {
         task_value: 20,
         base_date: new Date((new Date()).getFullYear(), (new Date()).getMonth() + 1, 0),
         created_at: new Date(),
-        updated_at: new Date()
-      }
+        updated_at: new Date(),
+      },
     ], {});
   },
 
   down: (queryInterface, Sequelize) => {
     return queryInterface.bulkDelete('rv_task_results', null, {});
-  }
+  },
 };

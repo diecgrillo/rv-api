@@ -1,55 +1,55 @@
+'use strict';
 const Sequelize = require('sequelize');
 const Op = Sequelize.Op;
 
-'use strict';
 module.exports = (sequelize, DataTypes) => {
   const RvResult = sequelize.define('RvResult', {
     userId: {
       type: DataTypes.INTEGER,
-      unique: 'actions_unique'
+      unique: 'actions_unique',
     },
     points: DataTypes.DECIMAL,
     value: {
       type: DataTypes.DECIMAL,
       validate: {
-        min: 0
-      }
+        min: 0,
+      },
     },
     origination: DataTypes.DECIMAL,
     percentage: {
       type: DataTypes.DECIMAL,
       validate: {
-        min: 0
-      }
+        min: 0,
+      },
     },
     remuneration: {
       type: DataTypes.DECIMAL,
       validate: {
-        min: 0
-      }
+        min: 0,
+      },
     },
     baseDate: {
       type: DataTypes.DATEONLY,
-      unique: 'actions_unique'
-    }
+      unique: 'actions_unique',
+    },
   }, {
     underscored: true,
     tableName: 'rv_results',
     uniqueKeys: {
       actions_unique: {
-        fields: ['user_id', 'base_date']
-      }
+        fields: ['user_id', 'base_date'],
+      },
     },
     hooks: {
       beforeCreate: function(result) {
         var date;
         if (result.baseDate)
-          date = new Date(result.baseDate)
+          date = new Date(result.baseDate);
         else
           date = new Date();
 
         result.baseDate = new Date(date.getFullYear(), date.getMonth() + 1, 0);
-      }
+      },
     },
     scopes: {
       fromBaseDate: function(userId, baseDate) {
@@ -61,11 +61,11 @@ module.exports = (sequelize, DataTypes) => {
         return {
           where: {
             userId: userId,
-            baseDate: { [Op.between]: [firstDay, lastDay] }
-          }
-        }
-      }
-    }
+            baseDate: { [Op.between]: [firstDay, lastDay] },
+          },
+        };
+      },
+    },
   });
   RvResult.associate = function(models) {
     // associations can be defined here

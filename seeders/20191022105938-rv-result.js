@@ -12,7 +12,7 @@ module.exports = {
         origination: 400000,
         base_date: new Date((new Date()).getFullYear(), (new Date()).getMonth() + 1, 0),
         created_at: new Date(),
-        updated_at: new Date()
+        updated_at: new Date(),
       },
       {
         user_id: 2,
@@ -23,7 +23,7 @@ module.exports = {
         origination: 600000,
         base_date: new Date((new Date()).getFullYear(), (new Date()).getMonth() + 1, 0),
         created_at: new Date(),
-        updated_at: new Date()
+        updated_at: new Date(),
       },
     ], {});
   },
@@ -36,5 +36,5 @@ module.exports = {
       Example:
       return queryInterface.bulkDelete('People', null, {});
     */
-  }
+  },
 };

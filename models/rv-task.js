@@ -1,14 +1,14 @@
+'use strict';
 const Sequelize = require('sequelize');
 const Op = Sequelize.Op;
 
-'use strict';
 module.exports = (sequelize, DataTypes) => {
   const RvTask = sequelize.define('RvTask', {
     name: DataTypes.STRING,
     taskNumber: DataTypes.INTEGER,
     points: DataTypes.DECIMAL,
     startDate: DataTypes.DATEONLY,
-    endDate: DataTypes.DATEONLY
+    endDate: DataTypes.DATEONLY,
   }, {
     underscored: true,
     tableName: 'rv_tasks',
@@ -17,23 +17,23 @@ module.exports = (sequelize, DataTypes) => {
         var startDate = new Date(task.startDate);
         var endDate = new Date(task.endDate);
         var currentDate = new Date();
-        currentDate.setHours(0,0,0,0)
-        startDate.setHours(0,0,0,0)
-        endDate.setHours(0,0,0,0)
+        currentDate.setHours(0, 0, 0, 0);
+        startDate.setHours(0, 0, 0, 0);
+        endDate.setHours(0, 0, 0, 0);
 
         // only check for active tasks when the task to be created will be active
         if ((task.startDate && startDate <= currentDate) &&
-          (task.endDate == null || endDate > currentDate))
+          (task.endDate === null || endDate > currentDate))
           return RvTask.scope(
-            { method: ['active', task.taskNumber]}
+            { method: ['active', task.taskNumber]},
           ).findAll({ transaction: options.transaction }).then(
-            function (tasks) {
+            function(tasks) {
               if (!Array.isArray(tasks) || tasks.length > 0) {
-                  throw new Error('The task ' + task.taskNumber + ' is already active.');
+                throw new Error('The task ' + task.taskNumber + ' is already active.');
               }
-            }
+            },
           );
-      }
+      },
     },
     scopes: {
       actives: {
@@ -42,10 +42,10 @@ module.exports = (sequelize, DataTypes) => {
           endDate: {
             [Op.or]: {
               [Op.gt]: new Date(),
-              [Op.eq]: null
-            }
-          }
-        }
+              [Op.eq]: null,
+            },
+          },
+        },
       },
       active: function(taskNumber){
         return {
@@ -55,13 +55,13 @@ module.exports = (sequelize, DataTypes) => {
             endDate: {
               [Op.or]: {
                 [Op.gt]: new Date(),
-                [Op.eq]: null
-              }
-            }
-          }
-        }
-      }
-    }
+                [Op.eq]: null,
+              },
+            },
+          },
+        };
+      },
+    },
   });
   RvTask.associate = function(models) {
     // associations can be defined here

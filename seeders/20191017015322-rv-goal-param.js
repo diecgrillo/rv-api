@@ -8,11 +8,11 @@ module.exports = {
       start_date: new Date(),
       end_date: null,
       created_at: new Date(),
-      updated_at: new Date()
+      updated_at: new Date(),
     }], {});
   },
 
   down: (queryInterface, Sequelize) => {
     return queryInterface.bulkDelete('rv_goal_params', null, {});
-  }
+  },
 };
